@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 abstract class Rotor
 {
 
-	protected $offset;
+	protected $offset = 0;
 	protected $manager;
 	protected $currentIsLeftToRight;
 

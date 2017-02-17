@@ -16,8 +16,8 @@ class SampleRotorTest extends TestCase
     	$rotorHandler = new RotorManager();
     	$rotor = new RotorTest($rotorHandler);
 
-    	$this->assertEquals(5, $rotor->inputLeft(2));
-    	$this->assertEquals(4, $rotor->inputRight(1));
+    	$this->assertEquals(5, $rotor->inputLeft(2, true));
+    	$this->assertEquals(4, $rotor->inputRight(1, true));
     }
 
 	/** @test */
@@ -26,17 +26,17 @@ class SampleRotorTest extends TestCase
     	$rotorHandler = new RotorManager();
     	$rotor = new RotorTest($rotorHandler, 1);
 
-		$output = ([$rotor->inputLeft(3), $rotor->inputRight(1)]);
+		$output = ([$rotor->inputLeft(3, true), $rotor->inputRight(1, true)]);
 		$this->assertEquals([4,6], $output);
 
 		$rotor->step();
 
-		$output = ([$rotor->inputLeft(3), $rotor->inputRight(1)]);
+		$output = ([$rotor->inputLeft(3, true), $rotor->inputRight(1, true)]);
 		$this->assertEquals([5,3], $output);
 
 		$rotor->step();
 
-		$output = ([$rotor->inputLeft(3), $rotor->inputRight(1)]);
+		$output = ([$rotor->inputLeft(3, true), $rotor->inputRight(1, true)]);
 		$this->assertEquals([3,0], $output);
 
     }

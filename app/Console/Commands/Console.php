@@ -38,27 +38,14 @@ class Console extends Command
      */
     public function handle()
     {
-        // $rotors = $this->ask('Enter Rotor Numbers');
-        // $plugboard = $this->ask('Enter Plugboard Settings');
-        // 
-        $rotors = $plugboard = 'I II III';
 
-        $enigma = new Enigma($rotors, $plugboard);
-
-        $message = $this->ask('Message?');
-
-        $plain = collect(str_split($message));
-        $transformed = $plain->map(function($character) use ($enigma){
-            if ($character != ' ')
-                return $enigma->transform($character);
-        });
-        
-        $this->info($transformed->implode(''));
-
-        return;
+        $rotors = $this->ask('Enter Rotor Numbers');
+        $offsets = $this->ask('Enter The Rotor Offsets');
+        $plugboard = $this->ask('Enter Plugboard Settings');
 
         //Set up our Enigma with the rotors and plugboard
-        
+        $enigma = new Enigma($rotors, $offsets, $plugboard);
+
         $limit = 1000;
         $letters = collect([]);
         $stop = false;

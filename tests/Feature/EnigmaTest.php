@@ -35,8 +35,8 @@ class EnigmaTest extends TestCase
     /** @test */
     function it_transforms_an_encryptable_phrase()
     {
-    	$machineA = new Enigma("I II III", false);
-		$machineB = new Enigma("I II III", false);
+    	$machineA = new Enigma("I II III", '8 14 19', 'EG HA SP OQ DM');
+		$machineB = new Enigma("I II III", '8 14 19', 'EG HA SP OQ DM');
 
 
 		$plainText = collect(str_split(strtoupper("ThisIsAnEncryptedPhrase")));
@@ -52,6 +52,25 @@ class EnigmaTest extends TestCase
 		});
 
 		$this->assertEquals($plainText, $decrypted);
+
+    }
+
+    /** @test */
+    function it_builds_a_plugboard()
+    {
+    	//Because the swap only occurs on certain letters,
+    	//all other letters should remain unswapped
+    	$machineA = new Enigma("I II III", '', 'TE SI AL CD');
+    	$machineB = new Enigma("I II III");
+
+    	$resultsA = $machineA->transform("B");
+    	$resultsOne = $machineA->transform("A");
+
+    	$resultsB = $machineB->transform("B");
+    	$resultsTwo = $machineB->transform("A");
+    	
+    	$this->assertEquals($resultsA, $resultsB);
+    	$this->assertNotEquals($resultsOne, $resultsTwo);
 
     }
 
