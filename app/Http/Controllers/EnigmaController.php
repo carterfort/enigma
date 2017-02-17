@@ -16,12 +16,12 @@ class EnigmaController extends Controller
     		"message" => 'required'
 		]);
 
-		$machine = new Enigma($request->rotors, $request->offset, $request->plugboard);
+		$machine = new Enigma($request->rotors, $request->offsets, $request->plugboard);
 		$transformedMessage = $machine->transformMessage($request->message);
 
 		$request = $request->all();
 		$request['message'] = $transformedMessage;
-		
+
 		return $request;
     }
 }

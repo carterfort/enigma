@@ -39,5 +39,20 @@ class RotorManagerTest extends TestCase
 		$this->assertEquals( 1, $rotorHandler->getRotors()[1]->getOffset());
 
     }
+
+    /** @test */
+    function it_returns_different_results_when_the_offsets_are_changed()
+    {
+        $rotorHandler = new RotorManager("Test Test Test");
+        $rotorHandler->setRotorOffsets([3,4,1]);
+        
+        $index = $rotorHandler->transformInput(10, true);
+        $this->assertEquals($index, 2);
+
+        $rotorHandler->setRotorOffsets([2,4,1]);
+
+        $index = $rotorHandler->transformInput(10, true);
+        $this->assertNotEquals($index, 2);
+    }
  
 }
