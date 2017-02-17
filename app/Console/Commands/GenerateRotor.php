@@ -11,7 +11,7 @@ class GenerateRotor extends Command
      *
      * @var string
      */
-    protected $signature = 'generate-rotor';
+    protected $signature = 'generate:rotor';
 
     /**
      * The console command description.

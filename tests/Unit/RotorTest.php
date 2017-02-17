@@ -22,7 +22,8 @@ class SingleRotorTest extends TestCase
 
    }
 
-   public function it_transforms_a_number_from_the_right()
+   /** @test */
+  function it_transforms_a_number_from_the_right()
    {
         $rotorHandler = new RotorManager();
         $rotor = new R($rotorHandler);
@@ -47,10 +48,5 @@ class SingleRotorTest extends TestCase
 
        $this->assertEquals($rotor->inputLeft(2), 0);
        $this->assertEquals($rotor->inputRight(3), 2);
-
-
-
-
-
-   }
+    }
 }

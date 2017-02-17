@@ -2,12 +2,14 @@
 
 namespace Enigma;
 
+use Illuminate\Support\Facades\Log;
+
 abstract class Rotor
 {
 
 	protected $offset;
-
 	protected $manager;
+	protected $currentIsLeftToRight;
 
 	public function __construct($manager, $offset = 0)
 	{
@@ -36,27 +38,41 @@ abstract class Rotor
 		if ($this->offset >= $this->sequence()->count()){
 			$this->offset = 0;
 			$this->manager->rotorDidCompleteRevolution($this);
-		}
-		var_dump($this->offset);
-		
+		}		
 	}
 
 	protected function transformFromOffset($position)
 	{
-		$transformed = $position - $this->offset;
-		while ($transformed < 0){
-			$transformed += $this->sequence()->count();
+		switch($this->currentIsLeftToRight)
+		{
+			case true:
+				$transformed = $position - $this->offset;
+				while ($transformed < 0){
+					$transformed += $this->sequence()->count();
+				}
+			break;
+			case false:
+				$transformed = $position + $this->offset;
+				while ($transformed >= $this->sequence()->count()){
+					$transformed -= $this->sequence()->count();
+				}
+			break;
 		}
+
+		Log::info("Offset transforms ".$position." to ".$transformed);
+
 		return $transformed;
 	}
 
-	public function inputLeft($postPosition)
+	public function inputLeft($postPosition, $currentIsLeftToRight)
 	{
+		$this->currentIsLeftToRight = $currentIsLeftToRight;
 		return $this->transformFromOffset($this->sequence()[$this->transformFromOffset($postPosition)]);
 	}
 
-	public function inputRight($postPosition)
+	public function inputRight($postPosition, $currentIsLeftToRight)
 	{
+		$this->currentIsLeftToRight = $currentIsLeftToRight;
 		return $this->transformFromOffset($this->sequence()->search($this->transformFromOffset($postPosition)));
 	}
 

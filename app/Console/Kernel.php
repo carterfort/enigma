@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\Console;
 use App\Console\Commands\GenerateRotor;
+use App\Console\Commands\GenerateReflector;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Console::class,
-        GenerateRotor::class
+        GenerateRotor::class,
+        GenerateReflector::class
     ];
 
     /**
