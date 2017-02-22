@@ -19,7 +19,7 @@ class Console extends Command
      *
      * @var string
      */
-    protected $description = 'Run a letter through the machine';
+    protected $description = 'Run a sequence of letters through the machine';
 
     /**
      * Create a new command instance.
@@ -39,9 +39,9 @@ class Console extends Command
     public function handle()
     {
 
-        $rotors = $this->ask('Enter Rotor Numbers');
-        $offsets = $this->ask('Enter The Rotor Offsets');
-        $plugboard = $this->ask('Enter Plugboard Settings');
+        $rotors = $this->ask('Enter Rotor Numbers (i.e. I IV II, III V II, I III II) ');
+        $offsets = $this->ask('Enter The Rotor Offsets (i.e. 17 10 22, 8 2 3, 20 10 7)');
+        $plugboard = $this->ask('Enter Plugboard Settings (i.e. AS PO EN DJ XW ) You cannot enter the same letter twice');
 
         //Set up our Enigma with the rotors and plugboard
         $enigma = new Enigma($rotors, $offsets, $plugboard);
