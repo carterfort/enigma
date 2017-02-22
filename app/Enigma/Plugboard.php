@@ -24,7 +24,7 @@ class Plugboard
 			});
 
 			$indexPair->each(function($index){
-				$exists = ($this->map[$index] ?? $this->map->search($index));
+				$exists = ( isset($this->map[$index]) ? $this->map[$index] : $this->map->search($index) );
 				if ($exists || $exists === 0)
 					throw new Exception("A letter cannot be swapped twice");
 			});
@@ -38,7 +38,7 @@ class Plugboard
 
 	public function swap($index)
 	{
-	 	$swapped = $this->map[$index] ?? $this->map->search($index);
+	 	$swapped = isset($this->map[$index]) ? $this->map[$index] : $this->map->search($index);
 	 	if ( $swapped || $swapped === 0 ) return $swapped;
 	 	return $index;
 	}
